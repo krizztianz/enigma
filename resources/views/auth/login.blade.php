@@ -16,11 +16,13 @@
                     <form method="POST" action="{{ route('login') }}">
 					{{ csrf_field() }}
                         <h2 class="text-uppercase">Masuk</h2>
-                        <div class="form-email">
+                        <div class="form-email"{{ ($errors->has('email')? ' has-error' : "") }}>
                             <input type="text" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
+                            <span class="help-block">{{ $errors->first('email') }}</span>
                         </div>
-                        <div class="form-password">
+                        <div class="form-password"{{ ($errors->has('password')? ' has-error' : "") }}>
                             <input type="password" placeholder="Password" name="password" required>
+                            <span class="help-block">{{ $errors->first('password') }}</span>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" id="check" name="remember" {{ old('remember') ? 'checked' : '' }}>
