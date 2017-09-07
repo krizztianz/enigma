@@ -36,11 +36,16 @@ class RegistrationRepository implements RegistrationInterface
                     $user         = $this->userRepo->create($data);
                     $member       = $this->memberRepo->create($user);
                     $organization = $this->orgRepo->create($orgName, $member);
-                    $token        = $this->tokenRepo->create($user);
+
+                    // Assign Member to Organization
+                    $member->organization_id = $organization->id;
+                    $member->save();
+
+                    $token = $this->tokenRepo->create($user);
 
                     return $user;
                 });
-                
+
             return $user;
         } catch (\Exception $ex) {
             Log::error($ex->getMessage());

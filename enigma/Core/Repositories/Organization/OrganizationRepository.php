@@ -20,13 +20,15 @@ class OrganizationRepository
      */
     public function create($orgName = '', Member $member)
     {
-        $slug = $this->createSlug($orgName);
+        $slug       = $this->createSlug($orgName);
+        $deactivate = Carbon::now()->addDays(30);
 
-        $organization           = new Organization();
-        $organization->name     = $orgName;
-        $organization->owner_id = $member->id;
-        $organization->slug     = $slug;
-        $organization->alias    = ucwords($orgName);
+        $organization                   = new Organization();
+        $organization->name             = $orgName;
+        $organization->owner_id         = $member->id;
+        $organization->slug             = $slug;
+        $organization->alias            = ucwords($orgName);
+        $organization->deactivationDate = $deactivate;
         $organization->saveOrFail();
 
         return $organization;
@@ -90,7 +92,7 @@ class OrganizationRepository
 
             return $slug;
         }
-        
+
         abort(500, 'Slug tidak boleh kosong!');
     }
 }

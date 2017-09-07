@@ -5,6 +5,7 @@ namespace Enigma\Modules\Core\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class CoreController extends Controller
 {
@@ -14,7 +15,8 @@ class CoreController extends Controller
      */
     public function index()
     {
-        return view('core::index');
+        $user = Auth::user();
+        echo $user->name;
     }
 
     /**

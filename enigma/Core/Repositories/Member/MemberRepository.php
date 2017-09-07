@@ -9,6 +9,11 @@ use Enigma\Modules\Core\Entities\Organization;
 class MemberRepository
 {
 
+    const NEED_ACTIVATION = "need_activation";
+    const ACTIVE          = "active";
+    const INACTIVE        = "inactive";
+    const BLOCKED         = "blocked";
+
     /**
      * Create new Member
      * 

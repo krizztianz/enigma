@@ -15,11 +15,11 @@
 <body>
     <div class="cover">
         <h1>Internal Server Error <small>Error 500</small></h1>
-        <p class="lead">{{ $exception->getMessage() }}</p>
+        <p class="lead">{!! $exception->getMessage() !!}</p>
     </div>
     
         <footer>
-        <p>Technical Contact: <a href="mailto:x@example.com">x@example.com</a></p>
+        <p>Technical Contact: <a href="mailto:kristianandi33@gmail.com">kristianandi33@gmail.com</a></p>
     </footer>
         
 
