@@ -24,7 +24,8 @@ class Helper
      */
     public static function getCurrentUser()
     {
-        $user = new User();
+        $userId = Auth::id();
+        $user   = User::findOrFail($userId);
         return $user;
     }
 
@@ -35,7 +36,10 @@ class Helper
      */
     public static function getCurrentOrganization()
     {
-        $organization = new Organization();
+        $userId       = Auth::id();
+        $user         = User::findOrFail($userId);
+        $member       = $user->member;
+        $organization = $member->organization;
         return $organization;
     }
 
@@ -46,7 +50,9 @@ class Helper
      */
     public static function getCurrentMember()
     {
-        $member = new Member();
+        $userId = Auth::id();
+        $user   = User::findOrFail($userId);
+        $member = $user->member;
         return $member;
     }
 
@@ -78,7 +84,7 @@ class Helper
             $deactivation = Carbon::createFromFormat('Y-m-d H:i:s', $organization->deactivationDate);
             return ($now->lt($deactivation));
         }
-        
+
         return true;
     }
 
@@ -115,6 +121,11 @@ class Helper
      */
     public static function getCompanyExpiryDate()
     {
-        return Carbon::now();
+        $userId       = Auth::id();
+        $user         = User::findOrFail($userId);
+        $member       = $user->member;
+        $organization = $member->organization;
+        
+        return Carbon::createFromFormat('Y-m-d H:i:s', $organization->deactivationDate);
     }
 }
